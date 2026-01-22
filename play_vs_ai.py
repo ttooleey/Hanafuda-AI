@@ -7,6 +7,7 @@ Created on Sat Jun 19 23:58:43 2021
 """
 
 import os
+import torch_compat  # Load compatibility layer for older PyTorch models
 from koikoigame import KoiKoiGameState
 from koikoilearn import AgentForTest
 import koikoigui as gui

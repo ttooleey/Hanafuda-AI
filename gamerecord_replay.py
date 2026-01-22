@@ -9,7 +9,7 @@ Created on Wed Apr 29 01:16:43 2020
 ## A GUI for checking game records
 
 # init GUI layout
-import PySimpleGUI as sg # pip install pysimplegui
+import FreeSimpleGUI as sg  # PySimpleGUI compatible fork
 import os.path
 import json
 import sys

@@ -6,7 +6,7 @@ Created on Tue Jun 22 22:31:17 2021
 @author: guansanghai
 """
 
-import PySimpleGUI as sg # pip install pysimplegui
+import FreeSimpleGUI as sg  # PySimpleGUI compatible fork
 import sys
 
 

@@ -6,7 +6,7 @@ Created on Mon Apr 27 12:36:30 2020
 @author: guansanghai
 """
 
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg  # PySimpleGUI compatible fork
 from gamerecord_replay_func import CardClassify
 
 def InitReplayGUI():
