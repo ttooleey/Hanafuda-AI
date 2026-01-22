@@ -588,7 +588,7 @@ def InitGUI() -> sg.Window:
     return gui.window
 
 
-def UpdateGameStatusGUI(window: sg.Window, game_state: Any) -> sg.Window:
+def UpdateGameStatusGUI(window: sg.Window, game_state: "KoiKoiGameState") -> sg.Window:
     """Legacy function to update game status."""
     round_state = game_state.round_state
     

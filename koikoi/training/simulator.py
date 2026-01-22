@@ -12,10 +12,13 @@ from __future__ import annotations
 
 from collections import namedtuple
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional, TYPE_CHECKING
+from typing import Callable, Dict, List, Optional, TYPE_CHECKING
 
+import numpy as np
 import torch
 
+from koikoi.core.constants import Action
+from koikoi.core.game_state import KoiKoiGameState
 from koikoi.training.buffer import Experience
 
 if TYPE_CHECKING:
@@ -34,7 +37,7 @@ STATE_TO_ACTION_TYPE: Dict[str, str] = {
 }
 
 
-def action_to_index(action: Any) -> Optional[int]:
+def action_to_index(action: Action) -> Optional[int]:
     """
     Convert action to integer index.
     
@@ -110,7 +113,7 @@ class TraceSimulator:
     reward_function: str = 'point'  # 'point' or 'wp' (win probability)
     
     # Win probability matrix for wp reward (loaded externally if needed)
-    win_prob_mat: Optional[Any] = None
+    win_prob_mat: Optional[np.ndarray] = None
     
     def __post_init__(self):
         """Initialize the trace buffer."""
@@ -120,7 +123,7 @@ class TraceSimulator:
             'koikoi': [],
         }
     
-    def _compute_reward_point(self, game_state: Any, player: int) -> float:
+    def _compute_reward_point(self, game_state: KoiKoiGameState, player: int) -> float:
         """
         Compute reward based on round points scored.
         
@@ -136,7 +139,7 @@ class TraceSimulator:
         round_point = game_state.round_state.round_point[player]
         return float(round_point)
     
-    def _compute_reward_wp(self, game_state: Any, player: int) -> float:
+    def _compute_reward_wp(self, game_state: KoiKoiGameState, player: int) -> float:
         """
         Compute reward based on win probability.
         
@@ -166,7 +169,7 @@ class TraceSimulator:
         
         return win_prob * 10.0
     
-    def _get_reward(self, game_state: Any, player: int) -> float:
+    def _get_reward(self, game_state: KoiKoiGameState, player: int) -> float:
         """
         Get reward based on configured reward function.
         

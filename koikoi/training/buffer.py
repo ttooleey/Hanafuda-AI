@@ -12,10 +12,12 @@ from __future__ import annotations
 
 import random
 from dataclasses import dataclass, field
-from typing import Any, List, NamedTuple, Optional, Tuple, TypeVar
+from typing import List, NamedTuple, Optional, Tuple, TypeVar
 
 import numpy as np
 import torch
+
+from koikoi.core.constants import Action
 
 
 class Experience(NamedTuple):
@@ -32,7 +34,7 @@ class Experience(NamedTuple):
         done: Whether episode ended
     """
     state: np.ndarray
-    action: Any
+    action: Action
     reward: float
     action_type: str
     action_mask: np.ndarray
@@ -119,7 +121,7 @@ class ExperienceBuffer:
         self,
         action_type: str,
         batch_size: int,
-    ) -> Tuple[torch.Tensor, List[Any], torch.Tensor, torch.Tensor]:
+    ) -> Tuple[torch.Tensor, List[Action], torch.Tensor, torch.Tensor]:
         """
         Sample a random batch from the buffer.
         

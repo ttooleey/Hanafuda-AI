@@ -16,13 +16,15 @@ import argparse
 import os
 import sys
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Dict, Optional
 
 import numpy as np
 import torch
 
 # Import from refactored package
 from koikoi.core.game_state import KoiKoiGameState
+from koikoi.core.round_state import KoiKoiRoundState
+from koikoi.core.constants import Action, CardAction
 from koikoi.ai.agent import KoiKoiAgent
 from koikoi.ai.strategies import ModelBasedStrategy
 from koikoi.ui.gui import (
@@ -171,9 +173,9 @@ class GameController:
             elif turn_player == 2:
                 self._handle_ai_turn(rs, state, wait_action)
     
-    def _handle_player_turn(self, rs: Any, state: str, wait_action: bool) -> None:
+    def _handle_player_turn(self, rs: KoiKoiRoundState, state: str, wait_action: bool) -> None:
         """Handle human player's turn."""
-        action = None  # Default when no action needed
+        action: Action = None  # Default when no action needed
         
         if state == 'discard':
             self.gui.update_turn_player(self.game_state)
@@ -207,10 +209,10 @@ class GameController:
                 action = self.gui.wait_koikoi()
             rs.claim_koikoi(action)
     
-    def _handle_ai_turn(self, rs: Any, state: str, wait_action: bool) -> None:
+    def _handle_ai_turn(self, rs: KoiKoiRoundState, state: str, wait_action: bool) -> None:
         """Handle AI's turn."""
         mask = np.ones(2 if state == 'koikoi' else 48)
-        action = None  # Default when no action needed
+        action: Action = None  # Default when no action needed
         
         if state == 'discard':
             self.gui.update_turn_player(self.game_state)

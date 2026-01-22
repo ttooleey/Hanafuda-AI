@@ -180,7 +180,7 @@ class Trainer:
     
     def _get_batches(
         self, 
-        buffer: Any, 
+        buffer: "ExperienceBuffer", 
         action_type: str
     ):
         """

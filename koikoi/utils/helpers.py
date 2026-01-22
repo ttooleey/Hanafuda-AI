@@ -12,10 +12,12 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
+
+from koikoi.core.constants import Action, CardAction, KoiKoiAction
 
 
-def action_to_index(action: Any) -> Optional[int]:
+def action_to_index(action: Action) -> Optional[int]:
     """
     Convert action to integer index.
     
@@ -50,7 +52,7 @@ def action_to_index(action: Any) -> Optional[int]:
     raise ValueError(f"Invalid action format: {action}")
 
 
-def index_to_action(index: int, action_type: str = 'card') -> Any:
+def index_to_action(index: int, action_type: str = 'card') -> Union[CardAction, KoiKoiAction]:
     """
     Convert integer index back to action format.
     

@@ -14,7 +14,7 @@ from __future__ import annotations
 import random
 from dataclasses import dataclass, field
 from enum import Enum, auto
-from typing import Any, Dict, List, Optional, Tuple, TYPE_CHECKING
+from typing import Any, Dict, List, Optional, Tuple, TYPE_CHECKING, Union
 
 import numpy as np
 
@@ -26,6 +26,9 @@ from koikoi.core.constants import (
     INITIAL_HAND_SIZE,
     MAX_FIELD_SLOTS,
     PlayerID,
+    Action,
+    CardAction,
+    KoiKoiAction,
 )
 from koikoi.core.card import Card, CardEncoder, CardSets, create_full_deck
 from koikoi.core.yaku import YakuCalculator
@@ -477,7 +480,7 @@ class KoiKoiRoundState:
         """Start a new round with current winner as dealer."""
         self.__init__(dealer=self._winner)
     
-    def step(self, action: Any) -> str:
+    def step(self, action: Action) -> str:
         """
         Execute an action based on current phase.
         
@@ -736,7 +739,7 @@ class KoiKoiRoundState:
                 'CardPairedByDrawnUncollect': np.zeros(TOTAL_CARDS),
             }
     
-    def _write_log(self, content: Any = None) -> None:
+    def _write_log(self, is_koikoi: Optional[bool] = None) -> None:
         """Write current state to log."""
         turn = self._turn_number
         
@@ -767,7 +770,7 @@ class KoiKoiRoundState:
             
         elif self._phase == GamePhase.KOIKOI:
             if turn in self._log.turns:
-                self._log.turns[turn].is_koikoi = content
+                self._log.turns[turn].is_koikoi = is_koikoi
                 
         elif self._phase == GamePhase.ROUND_OVER:
             points = self.round_point

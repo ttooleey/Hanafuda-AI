@@ -17,10 +17,12 @@ from __future__ import annotations
 
 import random
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional, TYPE_CHECKING
+from typing import Dict, List, Optional, TYPE_CHECKING
 
 import numpy as np
 import torch
+
+from koikoi.core.constants import Action
 
 if TYPE_CHECKING:
     from koikoi.core.game_state import KoiKoiGameState
@@ -46,7 +48,7 @@ class ActionStrategy(ABC):
         self,
         game_state: "KoiKoiGameState",
         action_mask: np.ndarray
-    ) -> Any:
+    ) -> Action:
         """
         Select an action for the current game state.
         
@@ -80,7 +82,7 @@ class RandomStrategy(ActionStrategy):
         self,
         game_state: "KoiKoiGameState",
         action_mask: np.ndarray
-    ) -> Any:
+    ) -> Action:
         """Select a random valid action."""
         round_state = game_state.round_state
         phase = round_state.state
@@ -171,7 +173,7 @@ class ModelBasedStrategy(ActionStrategy):
         self,
         game_state: "KoiKoiGameState",
         action_mask: np.ndarray
-    ) -> Any:
+    ) -> Action:
         """
         Select action using model predictions.
         
@@ -286,7 +288,7 @@ class EpsilonGreedyStrategy(ActionStrategy):
         self,
         game_state: "KoiKoiGameState",
         action_mask: np.ndarray
-    ) -> Any:
+    ) -> Action:
         """
         Select action with epsilon-greedy exploration.
         

@@ -12,10 +12,12 @@ interface to the complex underlying strategy and model systems.
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict, Optional, TYPE_CHECKING, Union
+from typing import Dict, Optional, TYPE_CHECKING, Union
 
+import numpy as np
 import torch
 
+from koikoi.core.constants import Action
 from koikoi.ai.models import DiscardModel, PickModel, KoiKoiModel
 from koikoi.ai.strategies import (
     ActionStrategy,
@@ -232,8 +234,8 @@ class KoiKoiAgent:
     def select_action(
         self,
         game_state: "KoiKoiGameState",
-        action_mask: Any,
-    ) -> Any:
+        action_mask: np.ndarray,
+    ) -> Action:
         """
         Select an action for the current game state.
         
