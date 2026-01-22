@@ -88,6 +88,18 @@ The AI uses a Transformer encoder architecture with:
    - RL-Point: Optimized for points per round
    - RL-WP: Optimized for win probability
 
+### RL Training Setup
+
+To run RL training, you need to generate the win probability matrix first:
+
+```bash
+# Generate win_prob_mat.pkl (required for RL training)
+uv run python scripts/training/rl_wp_reward_regress.py
+
+# Then run RL training
+uv run python scripts/training/rl_train.py
+```
+
 ### Design Patterns
 
 The codebase follows clean code principles with:
