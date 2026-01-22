@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 """
 PyTorch compatibility layer for loading models saved with older PyTorch versions.
-This module adds support for _LinearWithBias which was removed in PyTorch 1.9.
+This module adds support for _LinearWithBias which was removed in PyTorch 1.9,
+and redirects old module names to the new koikoi package structure.
 """
 
+import sys
 import torch
 import torch.nn as nn
 
@@ -19,3 +21,8 @@ class _LinearWithBias(nn.Linear):
 if not hasattr(nn.modules.linear, '_LinearWithBias'):
     nn.modules.linear._LinearWithBias = _LinearWithBias
     torch.nn.modules.linear._LinearWithBias = _LinearWithBias
+
+# Redirect old module names to new package structure
+# This allows loading models that were pickled with the old module names
+from koikoi.ai import models as koikoinet2L
+sys.modules['koikoinet2L'] = koikoinet2L

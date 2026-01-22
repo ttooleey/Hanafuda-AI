@@ -1,1 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# PyTorch models (large binary files)
+*.pt
+*.pth
+
+# Data files (large)
+*.pkl
+*.pickle
+
+# Game records (generated)
+gamerecords_player/
+
+# Documentation/Papers
+*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
 

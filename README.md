@@ -1,16 +1,61 @@
 # Koi-Koi AI
 
->S. Guan, J. Wang, R. Zhu, J. Qian and Z. Wei, **“Learning to Play Koi-Koi Hanafuda Card Games with Transformers,”** *IEEE Transactions on Artificial Intelligence*, vol. 4, no. 6, pp. 1449-1460, 2023. [doi: 10.1109/TAI.2023.3240674](https://ieeexplore.ieee.org/document/10032777). [\[PDF\]](https://github.com/guansanghai/KoiKoi-AI/raw/main/TAI.2023.3240674.pdf)
+>S. Guan, J. Wang, R. Zhu, J. Qian and Z. Wei, **"Learning to Play Koi-Koi Hanafuda Card Games with Transformers,"** *IEEE Transactions on Artificial Intelligence*, vol. 4, no. 6, pp. 1449-1460, 2023. [doi: 10.1109/TAI.2023.3240674](https://ieeexplore.ieee.org/document/10032777). [\[PDF\]](https://github.com/guansanghai/KoiKoi-AI/raw/main/TAI.2023.3240674.pdf)
 
 Learning based AI for playing multi-round Koi-Koi hanafuda card games. ([@guansanghai](https://github.com/guansanghai))
 
 ![Play Interface](/markdown/Kapture.gif)
 
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/guansanghai/KoiKoi-AI.git
+cd KoiKoi-AI
+
+# Install with pip
+pip install -e .
+```
+
+## Quick Start
+
+```bash
+# Play against AI (legacy script)
+python play_vs_ai.py
+
+# Or use the new package structure
+python scripts/play_game.py --ai RL-Point --name YourName
+```
+
+## Package Structure
+
+```
+koikoi/
+├── core/           # Core game logic
+│   ├── card.py         # Card representation and encoding
+│   ├── constants.py    # Game constants and enums
+│   ├── game_state.py   # Multi-round game management
+│   ├── round_state.py  # Single round state machine
+│   └── yaku.py         # Yaku (winning hand) definitions
+├── ai/             # AI agents and strategies
+│   ├── agent.py        # KoiKoiAgent facade class
+│   ├── models.py       # Transformer neural network models
+│   └── strategies.py   # Action selection strategies
+├── training/       # Training utilities
+│   ├── buffer.py       # Experience replay buffer
+│   ├── simulator.py    # Self-play simulation
+│   └── trainer.py      # Training loop management
+├── ui/             # User interface
+│   └── gui.py          # FreeSimpleGUI-based GUI
+└── utils/          # Utility functions
+    └── helpers.py      # Common helper functions
+```
+
 ## Environment
 
-* Python 3
+* Python 3.9
 * PyTorch 1.8.1
-* PySimpleGUI (for the interface playing vs AI)
+* FreeSimpleGUI (PySimpleGUI compatible fork)
 
 ## About Koi-Koi Hanafuda Card Games
 
@@ -24,3 +69,46 @@ Koi-Koi is consisted by multiple rounds and both players start with equal points
 
 ![Yaku List](/markdown/koikoi_yaku.png)
 
+## Architecture
+
+### Transformer-based Neural Network
+
+The AI uses a Transformer encoder architecture with:
+- 2 encoder layers with 4 attention heads
+- 48-dimensional embeddings (one per card)
+- Multi-head attention for learning card relationships
+
+### Training Methods
+
+1. **Supervised Learning (SL)**: Pre-training on expert game records
+2. **Reinforcement Learning (RL)**: Monte-Carlo RL with self-play
+   - RL-Point: Optimized for points per round
+   - RL-WP: Optimized for win probability
+
+### Design Patterns
+
+The codebase follows clean code principles with:
+- **Strategy Pattern**: Interchangeable action selection algorithms
+- **State Pattern**: Game phase management
+- **Facade Pattern**: Simplified agent interface
+
+## API Usage
+
+```python
+from koikoi import KoiKoiGameState, KoiKoiAgent
+
+# Create a new game
+game = KoiKoiGameState()
+
+# Load a pretrained agent
+agent = KoiKoiAgent.load_pretrained("model_agent/")
+
+# Play a game
+while not game.game_over:
+    action = agent.select_action(game, game.get_action_mask())
+    game.round_state.step(action)
+```
+
+## License
+
+MIT License
