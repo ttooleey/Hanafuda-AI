@@ -1,6 +1,9 @@
-# Koi-Koi AI
+# Hanafuda-AI
 
->S. Guan, J. Wang, R. Zhu, J. Qian and Z. Wei, **"Learning to Play Koi-Koi Hanafuda Card Games with Transformers,"** *IEEE Transactions on Artificial Intelligence*, vol. 4, no. 6, pp. 1449-1460, 2023. [doi: 10.1109/TAI.2023.3240674](https://ieeexplore.ieee.org/document/10032777). [\[PDF\]](https://github.com/guansanghai/KoiKoi-AI/raw/main/TAI.2023.3240674.pdf)
+> **This is a fork of [guansanghai/KoiKoi-AI](https://github.com/guansanghai/KoiKoi-AI)**, refactored with improved code structure and design patterns.
+
+### Original Paper
+>S. Guan, J. Wang, R. Zhu, J. Qian and Z. Wei, **"Learning to Play Koi-Koi Hanafuda Card Games with Transformers,"** *IEEE Transactions on Artificial Intelligence*, vol. 4, no. 6, pp. 1449-1460, 2023. [doi: 10.1109/TAI.2023.3240674](https://ieeexplore.ieee.org/document/10032777).
 
 Learning based AI for playing multi-round Koi-Koi hanafuda card games. ([@guansanghai](https://github.com/guansanghai))
 
@@ -10,21 +13,21 @@ Learning based AI for playing multi-round Koi-Koi hanafuda card games. ([@guansa
 
 ```bash
 # Clone the repository
-git clone https://github.com/guansanghai/KoiKoi-AI.git
-cd KoiKoi-AI
+git clone https://github.com/ttooleey/Hanafuda-AI.git
+cd Hanafuda-AI
 
-# Install with pip
+# Install with uv (recommended)
+uv sync
+
+# Or install with pip
 pip install -e .
 ```
 
 ## Quick Start
 
 ```bash
-# Play against AI (legacy script)
-python play_vs_ai.py
-
-# Or use the new package structure
-python scripts/play_game.py --ai RL-Point --name YourName
+# Play against AI
+uv run python -m koikoi.play --ai RL-Point --name YourName
 ```
 
 ## Package Structure
